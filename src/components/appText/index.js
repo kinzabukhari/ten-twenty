@@ -39,56 +39,20 @@ const getStyle = (type, textType, styles) => {
   }
 };
 
-const getConditionStyle = (condition, style) => {
-  if (condition) {
-    return style;
-  }
-  return null;
-};
-
-const AppText = ({
-  type,
-  underlined = false,
-  centered = false,
-  allUppercase = false,
-  textStyles = {},
-  children,
-  handlePress,
-  ...rest
-}) => {
+const AppText = ({type, textStyles = {}, children, handlePress, ...rest}) => {
   const {colors, textType} = useTheme();
   const styles = dynamicStyles(colors);
-  const underlineStyle = getConditionStyle(underlined, styles.underlined);
-  const isCentered = getConditionStyle(centered, styles.centered);
-  const isAllUppercase = getConditionStyle(allUppercase, styles.allUppercase);
 
   const renderText = useMemo(
     () => (
       <Text
         allowFontScaling={false}
-        style={[
-          styles.color,
-          getStyle(type, textType, styles),
-          underlineStyle,
-          isCentered,
-          isAllUppercase,
-          textStyles,
-        ]}
+        style={[styles.color, getStyle(type, textType, styles), textStyles]}
         {...rest}>
         {children}
       </Text>
     ),
-    [
-      children,
-      isAllUppercase,
-      isCentered,
-      rest,
-      styles,
-      textStyles,
-      textType,
-      type,
-      underlineStyle,
-    ],
+    [children, rest, styles, textStyles, textType, type],
   );
 
   return typeof handlePress === 'function' ? (

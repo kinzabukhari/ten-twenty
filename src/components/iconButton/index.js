@@ -1,11 +1,12 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useMemo} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import {TouchableOpacity} from 'react-native';
 
-import dynamicStyles from './styles';
+import {SvgXml} from 'react-native-svg';
+import {textType} from '../../constants/types';
+import {HP} from '../../utils';
 import AppText from '../appText';
+import dynamicStyles from './styles';
 
 const IconButton = ({icon, selected, handlePress, dot, name}) => {
   const theme = useTheme();
@@ -18,15 +19,19 @@ const IconButton = ({icon, selected, handlePress, dot, name}) => {
   );
 
   return (
-    <TouchableOpacity onPress={handlePress} activeOpacity={0.7}>
-      <View style={btnStyle}>
-        {icon == 'dashboard' ? (
-          <MaterialIcons name="dashboard" size={25} />
-        ) : icon == 'watch' ? (
-          <AntDesign name="youtube" size={25} />
-        ) : null}
-      </View>
-      <AppText>{name}</AppText>
+    <TouchableOpacity
+      style={styles.iconContainer}
+      onPress={handlePress}
+      activeOpacity={0.7}>
+      <SvgXml xml={icon} />
+      <AppText
+        type={textType.BODY_03}
+        textStyles={{
+          color: selected ? theme.colors.white : theme.colors.grey,
+          marginTop: HP('1'),
+        }}>
+        {name}
+      </AppText>
     </TouchableOpacity>
   );
 };

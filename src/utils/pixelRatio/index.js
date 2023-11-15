@@ -27,3 +27,5 @@ export const heightRatio = getWindowHeight() / guidelineBaseHeight;
 
 export const scale = (size, factor = 0.5) =>
   size + (baseScale(size) - size) * factor;
+
+export const horizontalSpace = 20;

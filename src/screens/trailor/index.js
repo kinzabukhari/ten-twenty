@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {FlatList, Image, Touchable, View} from 'react-native';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {FlatList, Image, View} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 import AppText from '../../components/appText';
 import LoadingIndicator from '../../components/loadingIndicator';
@@ -10,18 +10,12 @@ import axiosInstance from '../../utils/axiosHandler';
 import dynamicStyles from './styles';
 import {textType} from '../../constants/types';
 import {HeaderCommon} from '../../components';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {ScreenNameEnum} from '../../navigation/constants';
 
-const Watch = () => {
-  const navigation = useNavigation();
-
+const Trailor = () => {
   const [moviesList, setMoviesList] = useState([]);
   const [loader, setLoader] = useState(true);
   const {colors} = useTheme();
-
   const styles = dynamicStyles(colors);
-
   useEffect(() => {
     getData();
   }, []);
@@ -36,11 +30,11 @@ const Watch = () => {
     }
   };
 
-  if (loader) return <LoadingIndicator />;
+  if (loader) <LoadingIndicator />;
 
   return (
     <>
-      <HeaderCommon title={'Watch'} />
+      <HeaderCommon title={'watch'} />
 
       <FlatList
         data={moviesList}
@@ -48,8 +42,7 @@ const Watch = () => {
         contentContainerStyle={styles.container}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={({item}) => (
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate(ScreenNameEnum.CINEMATICKET)}>
+          <View>
             <AppText textStyles={styles.titleStyle} type={textType.H6}>
               {item.title}
             </AppText>
@@ -60,11 +53,11 @@ const Watch = () => {
               resizeMode="cover"
               style={styles.imageStyle}
             />
-          </TouchableWithoutFeedback>
+          </View>
         )}
       />
     </>
   );
 };
 
-export default Watch;
+export default Trailor;

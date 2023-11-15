@@ -4,6 +4,14 @@ import {View} from 'react-native';
 import {NavigationStacks} from '../../navigation/constants';
 import dynamicStyles from './styles';
 import IconButton from '../iconButton';
+import dashboardIcon from '../../assets/svgs/dashboardIcon';
+import watchWhiteIcon from '../../assets/svgs/watchWhiteIcon';
+import mediaIcon from '../../assets/svgs/mediaIcon';
+import moreIcon from '../../assets/svgs/moreIcon';
+import dashboardIconWhite from '../../assets/svgs/dashboardIconWhite';
+import watchIcon from '../../assets/svgs/watchIcon';
+import mediaIconWhite from '../../assets/svgs/mediaIconWhite';
+import moreIconWhite from '../../assets/svgs/moreIconWhite';
 
 const TabBarComponent = ({activeIndex, routeName}) => {
   const navigation = useNavigation();
@@ -14,23 +22,27 @@ const TabBarComponent = ({activeIndex, routeName}) => {
     {
       name: 'Dashboard',
       tabName: NavigationStacks.DASHBOARDSTACK,
-      icon: 'dashboard',
+      icon: dashboardIcon,
+      selectedIcon: dashboardIconWhite,
     },
     {
       name: 'Watch',
-      icon: 'event',
       tabName: NavigationStacks.WATCHSTACK,
+      icon: watchIcon,
+      selectedIcon: watchWhiteIcon,
     },
     {
       name: 'Media Library',
-      icon: 'media',
       tabName: NavigationStacks.MEDIASTACK,
+      icon: mediaIcon,
+      selectedIcon: mediaIconWhite,
     },
 
     {
       name: 'More',
-      icon: 'more',
       tabName: NavigationStacks.MORESTACK,
+      icon: moreIcon,
+      selectedIcon: moreIconWhite,
     },
   ];
 

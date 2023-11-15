@@ -7,7 +7,6 @@ const dynamicStyles = colors => {
       borderWidth: 1,
       borderTopRightRadius: 30,
       borderTopLeftRadius: 30,
-      borderColor: '#282C49',
       overflow: 'hidden',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -17,7 +16,7 @@ const dynamicStyles = colors => {
     bottomBtn: {
       justifyContent: 'center',
       alignItems: 'center',
-      paddingVertical: 25,
+      paddingVertical: 15,
     },
   });
 };

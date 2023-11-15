@@ -5,9 +5,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
 import {DarkTheme, LightTheme} from '../../constants/theme';
-import {NavigationStacks} from '../constants';
+import {NavigationStacks, ScreenNameEnum} from '../constants';
 import StackScreens from '../stackScreen';
 import TabNavigator from '../tabNavigator';
+import Trailor from '../../screens/trailor';
+import CinemaTicket from '../../screens/cinemaTicket';
 
 const RootStack = createStackNavigator();
 
@@ -41,6 +43,14 @@ function AppNavigation() {
           {StackScreens({
             name: NavigationStacks.TABSTACK,
             component: TabNavigator,
+          })}
+          {StackScreens({
+            name: ScreenNameEnum.TRAILOR,
+            component: Trailor,
+          })}
+          {StackScreens({
+            name: ScreenNameEnum.CINEMATICKET,
+            component: CinemaTicket,
           })}
         </RootStack.Navigator>
       </NavigationContainer>

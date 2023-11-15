@@ -11,4 +11,6 @@ export const ScreenNameEnum = {
   WATACH: 'WATACH',
   MEDIA: 'MEDIA',
   MORE: 'MORE',
+  TRAILOR: 'TRAILOR',
+  CINEMATICKET: 'CINEMATICKET',
 };

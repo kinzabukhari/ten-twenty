@@ -1,16 +1,24 @@
 import React from 'react';
+
 import {StyleSheet, View} from 'react-native';
 import {SvgXml} from 'react-native-svg';
+import {FlatList} from 'react-native-gesture-handler';
+
 import regularSeat from '../../assets/svgs/regularSeat';
 import notAvailableSeat from '../../assets/svgs/notAvailableSeat';
 import vipSeat from '../../assets/svgs/vipSeat';
 import selectedSeat from '../../assets/svgs/selectedSeat';
-import {FlatList} from 'react-native-gesture-handler';
+import {HorizontalSpace} from '../../utils';
+import dynamicStyles from './styles';
+import {useTheme} from '@react-navigation/native';
+import screen from '../../assets/svgs/screen';
+import AppText from '../appText';
 
 function CinemaSeats({seatData}) {
-  const Seat = ({seatNo, type}) => {
-    console.log('seat', seatNo);
+  const {colors} = useTheme();
+  const styles = dynamicStyles(colors);
 
+  const Seat = ({seatNo, type}) => {
     return (
       <View style={[styles.seat, styles[type]]}>
         <SvgXml
@@ -24,17 +32,17 @@ function CinemaSeats({seatData}) {
               : vipSeat
           }
         />
-        {/* <Text>{seat}</Text> */}
       </View>
     );
   };
 
   const SeatRow = ({data}) => {
-    const centerIndex = Math.floor(data.length / 2);
+    const totalSeats = 14; // Total seats to display in the center
+    const centerIndex = Math.floor((data.length - totalSeats) / 2);
     const leftSeats = data.slice(0, centerIndex);
-    const centerSeats = data.slice(centerIndex, centerIndex + 2);
-    const rightSeats = data.slice(centerIndex + 2);
-    // console.log('leftSeats', leftSeats);
+    const centerSeats = data.slice(centerIndex, centerIndex + totalSeats);
+    const rightSeats = data.slice(centerIndex + totalSeats);
+
     return (
       <View style={styles.row}>
         {leftSeats.map(seat => (
@@ -51,10 +59,16 @@ function CinemaSeats({seatData}) {
       </View>
     );
   };
+
   return (
     <View style={styles.container}>
+      <View style={styles.subContainer}>
+        <SvgXml xml={screen} />
+        <AppText style={styles.textStyle}>SCREEN</AppText>
+      </View>
       <FlatList
         data={seatData}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => <SeatRow data={item} />}
       />
@@ -63,32 +77,3 @@ function CinemaSeats({seatData}) {
 }
 
 export default CinemaSeats;
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  seat: {
-    // width: 30,
-    // height: 30,
-    // margin: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // borderWidth: 1,
-  },
-  // regular: {backgroundColor: '#eee'},
-  // notAvailable: {backgroundColor: '#ccc'},
-  // selected: {backgroundColor: '#66ff66'},
-  // vip: {backgroundColor: '#ffcc00'},
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 5,
-  },
-  centerSeatsContainer: {
-    marginHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
