@@ -1,26 +1,27 @@
 import React from 'react';
 
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {FlatList, TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SvgXml} from 'react-native-svg';
-import {FlatList} from 'react-native-gesture-handler';
 
-import regularSeat from '../../assets/svgs/regularSeat';
-import notAvailableSeat from '../../assets/svgs/notAvailableSeat';
-import vipSeat from '../../assets/svgs/vipSeat';
-import selectedSeat from '../../assets/svgs/selectedSeat';
-import {HorizontalSpace} from '../../utils';
-import dynamicStyles from './styles';
 import {useTheme} from '@react-navigation/native';
+import notAvailableSeat from '../../assets/svgs/notAvailableSeat';
+import regularSeat from '../../assets/svgs/regularSeat';
 import screen from '../../assets/svgs/screen';
+import selectedSeat from '../../assets/svgs/selectedSeat';
+import vipSeat from '../../assets/svgs/vipSeat';
 import AppText from '../appText';
+import dynamicStyles from './styles';
 
-function CinemaSeats({seatData}) {
+function CinemaSeats({seatData, handleTicket}) {
   const {colors} = useTheme();
   const styles = dynamicStyles(colors);
 
   const Seat = ({seatNo, type}) => {
     return (
-      <View style={[styles.seat, styles[type]]}>
+      <TouchableWithoutFeedback
+        onPress={() => handleTicket(type)}
+        style={[styles.seat, styles[type]]}>
         <SvgXml
           xml={
             type == 'regular'
@@ -32,7 +33,7 @@ function CinemaSeats({seatData}) {
               : vipSeat
           }
         />
-      </View>
+      </TouchableWithoutFeedback>
     );
   };
 

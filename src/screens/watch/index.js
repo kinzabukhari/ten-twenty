@@ -28,7 +28,7 @@ const Watch = () => {
 
   const getData = async () => {
     const res = await axiosInstance.get(
-      '/3/movie/upcoming?api_key=7ef746d8c4e019746e9bd764931eadd5',
+      '3/movie/upcoming?api_key=7ef746d8c4e019746e9bd764931eadd5',
     );
     if (res.data) {
       setLoader(false);

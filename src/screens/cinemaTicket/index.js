@@ -1,60 +1,42 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-import {Button, FlatList, Image, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {Alert, Image, View} from 'react-native';
 
 import notAvailable from '../../assets/pngs/notAvailable.png';
 import regular from '../../assets/pngs/regular.png';
 import selected from '../../assets/pngs/selected.png';
 import vip from '../../assets/pngs/vip.png';
 
-import {
-  CinemaSeats,
-  HeaderCinema,
-  AppText,
-  LoadingIndicator,
-  AppButton,
-} from '../../components';
+import {AppButton, AppText, CinemaSeats, HeaderCinema} from '../../components';
 
 import seatData from '../../utils/mockData';
 
-import dynamicStyles from './styles';
 import {textType} from '../../constants/types';
+import dynamicStyles from './styles';
 
-const subContainerData = [
-  {
-    iconName: selected,
-    title: 'Selected',
-  },
-  {
-    iconName: notAvailable,
-    title: 'Not Available',
-  },
-  {
-    iconName: vip,
-    title: 'vip ($150)',
-  },
-  {
-    iconName: regular,
-    title: 'Regular ($50)',
-  },
-];
-
-const CinemaTicket = ({title}) => {
+const CinemaTicket = () => {
   const {colors} = useTheme();
   const styles = dynamicStyles(colors);
-  const [loader, setLoader] = useState(true);
 
-  const renderItem = ({item}) => {
-    return (
-      <View style={styles.subContainer}>
-        <Image source={item.iconName} style={styles.imageStyle} />
-        <AppText>{item.title}</AppText>
-      </View>
-    );
+  const handleTicket = type => {
+    switch (type) {
+      case 'regular':
+        Alert.alert('Want to book regular seat?');
+        break;
+      case 'notAvailable':
+        Alert.alert('This is seat is not available');
+        break;
+      case 'selected':
+        Alert.alert('This is already selected');
+        break;
+      case 'vip':
+        Alert.alert('This is a vip seat');
+        break;
+      default:
+        break;
+    }
   };
-
-  if (loader) <LoadingIndicator />;
 
   return (
     <>
@@ -64,7 +46,7 @@ const CinemaTicket = ({title}) => {
       />
       <View style={styles.container}>
         <View style={styles.seatContainer}>
-          <CinemaSeats seatData={seatData} />
+          <CinemaSeats seatData={seatData} handleTicket={handleTicket} />
         </View>
 
         <View style={styles.listStyle}>
@@ -94,7 +76,7 @@ const CinemaTicket = ({title}) => {
       <View style={styles.footerContainer}>
         <View style={styles.totalPriceStyle}>
           <AppText type={textType.BODY_04}>Total Price</AppText>
-          <AppText textStyles={styles.textPriceStyles}>$ 50</AppText>
+          <AppText textStyles={styles.textPriceStyles}>$ 0</AppText>
         </View>
         <AppButton title="Proceed to pay" />
       </View>
